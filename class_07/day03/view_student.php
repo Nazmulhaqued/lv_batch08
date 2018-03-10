@@ -5,6 +5,12 @@ $all_student_info = $obj->select_all_student();
 if(isset($_POST['btn'])){
     $message=$obj->save_student($_POST);
 }
+if(isset($_GET['status'])){
+  if($_GET['status']=='delete'){
+      $obj->delete_student($_GET['student_id']);
+  }
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +58,7 @@ if(isset($_POST['btn'])){
           <th>Name</th>
           <th>Email Address</th>
           <th>Mobile Number</th>
+          <th>Action</th>
       </tr>
       <?php
         while($row = mysqli_fetch_assoc($all_student_info)){
@@ -61,6 +68,10 @@ if(isset($_POST['btn'])){
           <td><?php echo $row['student_name']; ?></td>
           <td><?php echo $row['email_address']; ?></td>
           <td><?php echo $row['mobile_number']; ?></td>
+          <td>
+              <a href="edit.php?student_id=<?php echo $row['student_id'];?>"> Edit </a> |
+               <a href="?status=delete&student_id=<?php echo $row['student_id'];?>"> Delete</a>             
+          </td>
       </tr>
         <?php }?> 
   </table>
